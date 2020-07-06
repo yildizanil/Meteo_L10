@@ -39,7 +39,7 @@ axis_days <- seq(startdate,enddate,60*60*24)
 #-------------------------------------------------------------------------------#
 #                Generating a 1000-dpi figure in tiff format                    #
 #-------------------------------------------------------------------------------#
-tiff("Figures/SubFigures/FigMeteo.tiff",height=110,width=150,res=1000,units="mm")
+pdf("Visualisation_TimeSeries.pdf",width=(150/25.4),height=(110/25.4),pointsize=10)
 #-------------------------------------------------------------------------------#
 #       Generating a panel layout consisting of two subfigures and a legend     #
 #-------------------------------------------------------------------------------#
@@ -47,14 +47,14 @@ layout(matrix(c(1,2,3),nrow=3,ncol=1),heights=c(1,5,5))
 #-------------------------------------------------------------------------------#
 #                           Legend of the figure                                #
 #-------------------------------------------------------------------------------#
-par(mar=c(0.25,2,0.25,2),mgp=c(0.1,0.1,0),family="serif",ps=10,cex=1,cex.main=1,las=1)
+par(mar=c(0.25,0.25,0.25,0.25),mgp=c(0.1,0.1,0),family="serif",ps=10,cex=1,cex.main=1,las=1)
 plot(0,0,xlab=NA,ylab=NA,axes=F,pch="")
-legend("center",c("Rainfall","Air temperature","Relative Humidity","Net radiation"),bty="n",ncol=4,
-       pch=c(15,NA,NA,NA),lwd=c(NA,2,2,2),col=c(8,2,blue,1),x.intersp=0.5,xjust = 0.5)
+legend("center",c("Rainfall","Air temperature","Relative Humidity","Net radiation"),bty="n",hor=T,
+       pch=c(15,NA,NA,NA),lwd=c(NA,2,2,2),col=c(8,2,blue,1),x.intersp=1,xjust = 0.5)
 #-------------------------------------------------------------------------------#
 #                Daily rainfall and range of air temperature                    #
 #-------------------------------------------------------------------------------#
-par(mar=c(2,2,0.25,2),mgp=c(0.1,0.1,0),family="serif",ps=10,cex=1,cex.main=1,las=1)
+par(mar=c(2,2.5,0.25,2.5),mgp=c(0.1,0.1,0),family="serif",ps=10,cex=1,cex.main=1,las=1)
 plot(0,0,type="l",lwd=3,ylim=c(0,40),xlim=c(startdate,enddate),axes=F,xlab=NA,ylab=NA,pch="")
 segments(x0=seq(startdate,enddate,60*60*24),y0=0,x1=seq(startdate,enddate,60*60*24),y1=40,col=rgb(0,0,0,0.1),lty=1)
 segments(x0=startdate-60*60*48,y0=seq(0,40,10),x1=enddate,y1=seq(0,40,10),col=rgb(0,0,0,0.1),lty=1)
@@ -77,12 +77,12 @@ lines(meteo$AirTemp_Mean~as.POSIXct(meteo$Time,"UTC"),col=2,lwd=2)
 par(las=0)
 box()
 mtext("Time [dd-mm]",side=1,line=1)
-mtext("Daily rainfall [mm]",side=2,line=1)
-mtext("Air temperature [°C]",side=4,line=1)
+mtext("Daily rainfall [mm]",side=2,line=1.25)
+mtext("Air temperature [°C]",side=4,line=1.5)
 #-------------------------------------------------------------------------------#
 #                Net radiation and range of relative humidity                   #
 #-------------------------------------------------------------------------------#
-par(mar=c(2,2,0.25,2),mgp=c(0.1,0.1,0),family="serif",ps=10,cex=1,cex.main=1,las=1)
+par(mar=c(2,2.5,0.25,2.5),mgp=c(0.1,0.1,0),family="serif",ps=10,cex=1,cex.main=1,las=1)
 plot(0,0,type="l",lwd=3,ylim=c(0,100),xlim=c(startdate,enddate),axes=F,xlab=NA,ylab=NA,pch="")
 segments(x0=seq(startdate,enddate,60*60*24),y0=0,x1=seq(startdate,enddate,60*60*24),y1=100,col=rgb(0,0,0,0.1),lty=1)
 segments(x0=startdate,y0=seq(0,100,20),x1=enddate,y1=seq(0,100,20),col=rgb(0,0,0,0.1),lty=1)
@@ -101,8 +101,8 @@ lines(meteo$NetRad~as.POSIXct(meteo$Time,"UTC"),col=1,lwd=2)
 par(las=0)
 par(las=0)
 mtext("Time [dd-mm]",side=1,line=1)
-mtext("Relative humidity [%]",side=2,line=1)
-mtext(expression(paste("Net radiation [W/m"^2,"]")),side=4,line=1)
+mtext("Relative humidity [%]",side=2,line=1.25)
+mtext(expression(paste("Net radiation [W/m"^2,"]")),side=4,line=1.5)
 box()
 
 dev.off()
