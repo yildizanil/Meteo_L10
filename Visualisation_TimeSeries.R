@@ -4,7 +4,7 @@
 #                                PLEXUS                                         #
 #                   written by Anil Yildiz, Dr. sc.                             #
 #                         Created on 03.07.2020                                 #
-#                       Last edited on 03.07.2020                               #
+#                       Last edited on 06.07.2020                               #
 #################################################################################
 #-------------------------------------------------------------------------------#
 #     Data used in this script is obtained from Yildiz & Stirling (2020).       #
@@ -18,15 +18,8 @@ enddate <- as.POSIXct("2019-12-01 00:00:00",tz="UTC")-1
 #-------------------------------------------------------------------------------#
 #                      Importing data file from the repository                  #
 #-------------------------------------------------------------------------------#
-link <- "https://s3-eu-west-1.amazonaws.com/pstorage-ncl-8160713447/23581118/meteo_daily.csv"
+link <- "https://s3-eu-west-1.amazonaws.com/pstorage-ncl-8160713447/23654957/meteo_daily_v2.csv"
 meteo <- read.csv(link,stringsAsFactors=F)
-#-------------------------------------------------------------------------------#
-#       Reformatting the date column to match the format of POSIXct             #
-#-------------------------------------------------------------------------------#
-year <- substr(meteo$Time,start=7,stop=10)
-month <- substr(meteo$Time,start=4,stop=5)
-day <- substr(meteo$Time,start=1,stop=2)
-meteo$Time <- paste0(year,"-",month,"-",day)
 #-------------------------------------------------------------------------------#
 #Subsetting the date frame to include data only from the time frame investigated#
 #-------------------------------------------------------------------------------#
